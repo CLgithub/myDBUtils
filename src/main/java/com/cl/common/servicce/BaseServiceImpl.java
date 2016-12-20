@@ -19,13 +19,13 @@ public class BaseServiceImpl implements BaseService {
 
     BaseDao baseDao=new BaseDaoImpl();
 
-    public PageBean getPageBean(String sql, String listORarray, Integer currentPage, Integer pageSize, Object... objects) throws SQLException {
+    public PageBean getPageBean(String sql, String mapORarray, Integer currentPage, Integer pageSize, Object... objects) throws SQLException {
         Integer total = this.getTotlaBySql(sql, objects);// 得到总的记录长度
         String pageSql = this.getPageBeanSqlOracle(sql, currentPage, pageSize);
         List<?> list=new ArrayList<Object>();
-        if("map".equals(listORarray.toLowerCase())){
+        if("map".equals(mapORarray.toLowerCase())){
             list = this.selectListMapBySql(pageSql, objects);
-        }else if("array".equals(listORarray.toLowerCase())){
+        }else if("array".equals(mapORarray.toLowerCase())){
             list=this.selectListArrayBySql(pageSql,objects);
         }
         PageBean pageBean = new PageBean();

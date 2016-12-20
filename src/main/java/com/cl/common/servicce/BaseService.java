@@ -14,13 +14,13 @@ public interface BaseService {
     /**
      * 得到pagebean
      * @param sql sql语句
-     * @param listORarray 封装为list或array类型
+     * @param mapORarray 封装为map或array类型
      * @param currentPage 当前页
      * @param pageSize 每页大小
      * @param objects sql参数
      * @return pageBean
      */
-    PageBean getPageBean(String sql, String listORarray, Integer currentPage, Integer pageSize, Object... objects) throws SQLException;
+    PageBean getPageBean(String sql, String mapORarray, Integer currentPage, Integer pageSize, Object... objects) throws SQLException;
 
     /**
      * 根据sql查询总记录数
