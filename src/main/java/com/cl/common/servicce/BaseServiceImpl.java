@@ -53,9 +53,7 @@ public class BaseServiceImpl implements BaseService {
     }
 
     public List<String[]> selectListArrayBySql(String sql,Object... objects) throws SQLException {
-        Object o = baseDao.selectObject(sql, new ArrayListHandler());
-        List<Object> list= (List<Object>) o;
-
+        Object o = baseDao.selectObject(sql, new ArrayListHandler(),objects);
         List<String[]> listArray= (List<String[]>) o;
         return listArray;
     }

@@ -12,11 +12,11 @@
     <dependencies>
 
         <!--test-->
-        <!--<dependency>-->
-            <!--<groupId>junit</groupId>-->
-            <!--<artifactId>junit</artifactId>-->
-            <!--<version>4.12</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
 
         <!--common-->
         <dependency>
@@ -36,10 +36,17 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.1.2</version>
         </dependency>-->
+        <!--dbcp连接池-->
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
+        </dependency>
+        <!--HikariCP连接池-->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP-java6</artifactId>
+            <version>2.3.13</version>
         </dependency>
 
         <!--oracle 驱动-->

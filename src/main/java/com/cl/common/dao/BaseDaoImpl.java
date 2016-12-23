@@ -1,5 +1,7 @@
 package com.cl.common.dao;
 
+import com.cl.common.utils.JDBCUtilDbcp;
+import com.cl.common.utils.JDBCUtilHikariCP;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 
@@ -19,13 +21,14 @@ public class BaseDaoImpl implements BaseDao {
      * @return
      */
     public int executeSql(String sql, Object... objects) throws SQLException {
-        Connection connect = JDBCUtil.getConnect();
+        Connection connect= JDBCUtilHikariCP.getConnection();
+//        Connection connect = JDBCUtilDbcp.getConnection();
         PreparedStatement pStatement= connect.prepareStatement(sql);
         for(int i=0;i<objects.length;i++){
             pStatement.setObject(i+1,objects[i]);
         }
         int i = pStatement.executeUpdate();
-        JDBCUtil.closeConn(connect);
+        JDBCUtilDbcp.closeConnect(connect);
         return i;
     }
 
@@ -38,7 +41,8 @@ public class BaseDaoImpl implements BaseDao {
      * @throws SQLException
      */
     public Object selectObject(String sql, ResultSetHandler resultSetHandler, Object... objects) throws SQLException {
-        QueryRunner queryRunner = JDBCUtil.getQueryRunner();
+        QueryRunner queryRunner = JDBCUtilHikariCP.getQueryRunner();
+//        QueryRunner queryRunner = JDBCUtilDbcp.getQueryRunner();
         Object query = queryRunner.query(sql, resultSetHandler, objects);
         return query;
     }
