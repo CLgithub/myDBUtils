@@ -1,6 +1,5 @@
 package com.cl.common.dao;
 
-import com.cl.common.utils.JDBCUtilDbcp;
 import com.cl.common.utils.JDBCUtilHikariCP;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -28,7 +27,7 @@ public class BaseDaoImpl implements BaseDao {
             pStatement.setObject(i+1,objects[i]);
         }
         int i = pStatement.executeUpdate();
-        JDBCUtilDbcp.closeConnect(connect);
+        JDBCUtilHikariCP.closeConnect(connect);
         return i;
     }
 

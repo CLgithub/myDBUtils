@@ -71,7 +71,7 @@
     </dependencies>
 
     <!-- 私服 -->
-    <repositories>
+    <!--<repositories>
         <repository>
             <snapshots>
                 <enabled>false</enabled>
@@ -82,7 +82,7 @@
             <layout>default</layout>
         </repository>
     </repositories>
-    <!--maven的生命周期插件的下载地址 -->
+    &lt;!&ndash;maven的生命周期插件的下载地址 &ndash;&gt;
     <pluginRepositories>
         <pluginRepository>
             <releases>
@@ -96,5 +96,5 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 </project>

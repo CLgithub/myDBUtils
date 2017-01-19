@@ -13,6 +13,7 @@ import java.util.Properties;
 public class JDBCUtilHikariCP {
 
     static HikariDataSource hikariDataSource=null;
+    static QueryRunner queryRunner=null;
 
     static {
         Properties properties = new Properties();
@@ -25,13 +26,13 @@ public class JDBCUtilHikariCP {
             hikariDataSource.setPassword((String) properties.get("password"));
 //            hikariDataSource.setMaximumPoolSize(10);
             hikariDataSource.setConnectionTestQuery((String) properties.get("conTestQuery"));
-        } catch (Exception e) {
+            queryRunner = new QueryRunner(hikariDataSource);
+    } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static QueryRunner getQueryRunner(){
-        QueryRunner queryRunner = new QueryRunner(hikariDataSource);
         return queryRunner;
     }
 
