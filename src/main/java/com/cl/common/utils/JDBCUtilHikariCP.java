@@ -27,7 +27,7 @@ public class JDBCUtilHikariCP {
 //            hikariDataSource.setMaximumPoolSize(10);
             hikariDataSource.setConnectionTestQuery((String) properties.get("conTestQuery"));
             queryRunner = new QueryRunner(hikariDataSource);
-    } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
