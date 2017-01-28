@@ -1,12 +1,12 @@
 package com.cl.common.servicce;
 
-import com.cl.common.dao.BaseDao;
-import com.cl.common.dao.BaseDaoImpl;
 import com.cl.common.utils.PageBean;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +17,14 @@ import java.util.Map;
  */
 public class BaseServiceImpl implements BaseService {
 
-    BaseDao baseDao=new BaseDaoImpl();
-
-    public PageBean getPageBean(String sql, String mapORarray, Integer currentPage, Integer pageSize, Object... objects) throws SQLException {
-        Integer total = this.getTotlaBySql(sql, objects);// 得到总的记录长度
+    public PageBean getPageBean(QueryRunner queryRunner, String sql, String mapORarray, Integer currentPage, Integer pageSize, Object... objects) throws SQLException {
+        Integer total = this.getTotlaBySql(queryRunner, sql, objects);// 得到总的记录长度
         String pageSql = this.getPageBeanSqlOracle(sql, currentPage, pageSize);
         List<?> list=new ArrayList<Object>();
         if("map".equals(mapORarray.toLowerCase())){
-            list = this.selectListMapBySql(pageSql, objects);
+            list = this.selectListMapBySql(queryRunner, pageSql, objects);
         }else if("array".equals(mapORarray.toLowerCase())){
-            list=this.selectListArrayBySql(pageSql,objects);
+            list=this.selectListArrayBySql(queryRunner, pageSql,objects);
         }
         PageBean pageBean = new PageBean();
         pageBean.setTotal(total);
@@ -37,24 +35,23 @@ public class BaseServiceImpl implements BaseService {
         return pageBean;
     }
 
-    public Integer getTotlaBySql(String sql, Object... objects) throws SQLException {
+    public Integer getTotlaBySql(QueryRunner queryRunner, String sql, Object... objects) throws SQLException {
         int index = sql.toLowerCase().indexOf("from");
         String subString = sql.substring(index);
         String newSql = "select count(1) " + subString;
-        Object o = baseDao.selectObject(newSql, new ScalarHandler(), objects);
+        Object o = queryRunner.query(newSql, new ScalarHandler(), objects);
         return Integer.parseInt(o.toString());
     }
 
-    public List<Map<String, Object>> selectListMapBySql(String sql, Object... objects) throws SQLException {
-        Object o = baseDao.selectObject(sql, new MapListHandler(), objects);
+    public List<Map<String, Object>> selectListMapBySql(QueryRunner queryRunner, String sql, Object... objects) throws SQLException {
+        Object o = queryRunner.query(sql, new MapListHandler(), objects);
         List<Map<String, Object>> listMap= (List<Map<String, Object>>) o;
         return listMap;
 
     }
 
-    public List<String[]> selectListArrayBySql(String sql,Object... objects) throws SQLException {
-        Object o = baseDao.selectObject(sql, new ArrayListHandler(),objects);
-        List<String[]> listArray= (List<String[]>) o;
+    public List<Object[]> selectListArrayBySql(QueryRunner queryRunner, String sql,Object... objects) throws SQLException {
+        List<Object[]> listArray = queryRunner.query(sql, new ArrayListHandler(), objects);
         return listArray;
     }
 
@@ -63,6 +60,21 @@ public class BaseServiceImpl implements BaseService {
         int endI=currentPage*pageSize;
         String pageBeanSql="select * from (select A.*,rownum rn from("+sql+")A where rownum<="+endI+") where rn>="+startI;
         return pageBeanSql;
+    }
+
+//    public Object selectObject(QueryRunner queryRunner, String sql, ResultSetHandler resultSetHandler, Object... objects) throws SQLException {
+//        Object query = queryRunner.query(sql, resultSetHandler, objects);
+//        return query;
+//    }
+
+    public int executeSql(Connection connect, String sql, Object... objects) throws SQLException {
+        PreparedStatement pStatement= connect.prepareStatement(sql);
+        for(int i=0;i<objects.length;i++){
+            pStatement.setObject(i+1,objects[i]);
+        }
+        int i = pStatement.executeUpdate();
+        pStatement.close();
+        return i;
     }
 
 }
