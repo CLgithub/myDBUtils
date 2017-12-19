@@ -4,6 +4,7 @@ import com.cl.common.utils.PageBean;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -79,4 +80,15 @@ public interface BaseService {
      * @return
      */
     int executeSql(Connection connection, String sql, Object... objects) throws SQLException;
+
+
+    /**
+     * 根据sql查询数据，将数据存储到csvFile文件中
+     * @param sql 查询数据sql
+     * @param csvFile csv文件
+     * @param separator 分隔符
+     * @param head 是否带头信息
+     * @param batchSize 批次存入文件的数据量条数
+     */
+    void getFileBySql(String sql, File csvFile, String separator, boolean head, int batchSize);
 }
