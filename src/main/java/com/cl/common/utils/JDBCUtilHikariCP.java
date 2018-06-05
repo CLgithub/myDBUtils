@@ -12,8 +12,8 @@ import java.util.Properties;
  */
 public class JDBCUtilHikariCP {
 
-    static HikariDataSource hikariDataSource1=null;
-    static QueryRunner queryRunner1=null;
+    static HikariDataSource hikariDataSource=null;
+    static QueryRunner queryRunner=null;
     static HikariDataSource hikariDataSource2=null;
     static QueryRunner queryRunner2=null;
     static HikariDataSource hikariDataSource3=null;
@@ -23,14 +23,14 @@ public class JDBCUtilHikariCP {
         Properties properties = new Properties();
         try{
             properties.load(JDBCUtilDbcp.class.getClassLoader().getResourceAsStream("jdbc.properties"));
-            hikariDataSource1=new HikariDataSource();
-            hikariDataSource1.setDriverClassName((String) properties.get("driverClassName1"));
-            hikariDataSource1.setJdbcUrl((String) properties.get("url1"));
-            hikariDataSource1.setUsername((String) properties.get("username1"));
-            hikariDataSource1.setPassword((String) properties.get("password1"));
+            hikariDataSource=new HikariDataSource();
+            hikariDataSource.setDriverClassName((String) properties.get("driverClassName"));
+            hikariDataSource.setJdbcUrl((String) properties.get("url"));
+            hikariDataSource.setUsername((String) properties.get("username"));
+            hikariDataSource.setPassword((String) properties.get("password"));
 //            hikariDataSource.setMaximumPoolSize(10);
-            hikariDataSource1.setConnectionTestQuery((String) properties.get("conTestQuery1"));
-            queryRunner1 = new QueryRunner(hikariDataSource1);
+            hikariDataSource.setConnectionTestQuery((String) properties.get("conTestQuery"));
+            queryRunner = new QueryRunner(hikariDataSource);
 
             hikariDataSource2=new HikariDataSource();
             hikariDataSource2.setDriverClassName((String) properties.get("driverClassName2"));
@@ -54,11 +54,11 @@ public class JDBCUtilHikariCP {
         }
     }
 
-    public static QueryRunner getQueryRunner1(){
-        return queryRunner1;
+    public static QueryRunner getQueryRunner(){
+        return queryRunner;
     }
-    public static Connection getConnection1() throws SQLException {
-        return hikariDataSource1.getConnection();
+    public static Connection getConnection() throws SQLException {
+        return hikariDataSource.getConnection();
     }
     public static QueryRunner getQueryRunner2(){
         return queryRunner2;
