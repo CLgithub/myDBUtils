@@ -83,7 +83,7 @@ public class BaseServiceImpl implements BaseService {
         try {
             bufferedWriter=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFile)));
             BaseServiceImpl baseService = new BaseServiceImpl();
-            QueryRunner queryRunner = JDBCUtilHikariCP.getQueryRunner();
+            QueryRunner queryRunner = JDBCUtilHikariCP.getQueryRunner1();
             if(head){
                 // 过去头信息
                 String pageSql = baseService.getPageBeanSqlOracle(sql, 1, 1);
