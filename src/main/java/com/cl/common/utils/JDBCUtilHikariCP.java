@@ -13,11 +13,8 @@ import java.util.Properties;
 public class JDBCUtilHikariCP {
 
     static HikariDataSource hikariDataSource=null;
-    static QueryRunner queryRunner=null;
     static HikariDataSource hikariDataSource2=null;
-    static QueryRunner queryRunner2=null;
     static HikariDataSource hikariDataSource3=null;
-    static QueryRunner queryRunner3=null;
 
     static {
         Properties properties = new Properties();
@@ -28,28 +25,28 @@ public class JDBCUtilHikariCP {
             hikariDataSource.setJdbcUrl(properties.getProperty("url"));
             hikariDataSource.setUsername(properties.getProperty("username"));
             hikariDataSource.setPassword(properties.getProperty("password"));
-//            hikariDataSource.setMaximumPoolSize(10);
             hikariDataSource.setConnectionTestQuery(properties.getProperty("conTestQuery"));
-            queryRunner = new QueryRunner(hikariDataSource);
+            hikariDataSource.setMaximumPoolSize(Integer.parseInt( properties.getProperty("maxMumPoolSize") == null ? "10" : properties.getProperty("maxMumPoolSize") ));//设置最大连接数，如果没有配置，默认10
+            hikariDataSource.setConnectionTimeout(Long.parseLong( properties.getProperty("countTimeOut") == null ? "60000" : properties.getProperty("countTimeOut") )); //设置连接超时时长
 
             hikariDataSource2=new HikariDataSource();
             hikariDataSource2.setDriverClassName(properties.getProperty("driverClassName2"));
             hikariDataSource2.setJdbcUrl(properties.getProperty("url2"));
             hikariDataSource2.setUsername(properties.getProperty("username2"));
             hikariDataSource2.setPassword(properties.getProperty("password2"));
-//            hikariDataSource.setMaximumPoolSize(10);
             hikariDataSource2.setConnectionTestQuery(properties.getProperty("conTestQuery2"));
-            queryRunner2=new QueryRunner(hikariDataSource2);
+            hikariDataSource2.setMaximumPoolSize(Integer.parseInt( properties.getProperty("maxMumPoolSize2") == null ? "10" : properties.getProperty("maxMumPoolSize2") ));//设置最大连接数，如果没有配置，默认10
+            hikariDataSource2.setConnectionTimeout(Long.parseLong( properties.getProperty("countTimeOut2") == null ? "60000" : properties.getProperty("countTimeOut2") )); //设置连接超时时长
 
             hikariDataSource3=new HikariDataSource();
             hikariDataSource3.setDriverClassName(properties.getProperty("driverClassName3"));
             hikariDataSource3.setJdbcUrl(properties.getProperty("url3"));
             hikariDataSource3.setUsername(properties.getProperty("username3"));
             hikariDataSource3.setPassword(properties.getProperty("password3"));
-//            hikariDataSource.setMaximumPoolSize(10);
             hikariDataSource3.setConnectionTestQuery(properties.getProperty("conTestQuery3"));
+            hikariDataSource3.setMaximumPoolSize(Integer.parseInt( properties.getProperty("maxMumPoolSize3") == null ? "10" : properties.getProperty("maxMumPoolSize3") ));//设置最大连接数，如果没有配置，默认10
+            hikariDataSource3.setConnectionTimeout(Long.parseLong( properties.getProperty("countTimeOut3") == null ? "60000" : properties.getProperty("countTimeOut3") )); //设置连接超时时长
 
-            queryRunner3=new QueryRunner(hikariDataSource3);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,23 +55,21 @@ public class JDBCUtilHikariCP {
     public static HikariDataSource getHikariDataSource(){
         return hikariDataSource;
     }
-
     public static HikariDataSource getHikariDataSource2(){
         return hikariDataSource2;
     }
-
     public static HikariDataSource getHikariDataSource3(){
         return hikariDataSource3;
     }
 
     public static QueryRunner getQueryRunner(){
-        return queryRunner;
+        return  new QueryRunner(hikariDataSource);
     }
     public static QueryRunner getQueryRunner2(){
-        return queryRunner2;
+        return new QueryRunner(hikariDataSource2);
     }
     public static QueryRunner getQueryRunner3(){
-        return queryRunner3;
+        return new QueryRunner(hikariDataSource3);
     }
 
 
@@ -88,11 +83,6 @@ public class JDBCUtilHikariCP {
         return hikariDataSource3.getConnection();
     }
 
-    public static void closeConnect(Connection connection) throws SQLException {
-        if(connection!=null){
-           connection.close();
-        }
-    }
 
 }
 
