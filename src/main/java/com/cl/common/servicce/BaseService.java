@@ -91,4 +91,16 @@ public interface BaseService {
      * @param batchSize 批次存入文件的数据量条数
      */
     void getFileBySql(String sql, File csvFile, String separator, boolean head, int batchSize);
+
+    /**
+     * 实体类插入
+     * @param connection 数据库连接
+     * @param sql
+     * @param list 数据列表
+     * @param fieldNum 字段个数
+     */
+    void inputEntity(Connection connection, String sql, List<Object> list, int fieldNum);
+
+//    void inputBysql(Connection connection, String sql, List<Object> list, );
+
 }
