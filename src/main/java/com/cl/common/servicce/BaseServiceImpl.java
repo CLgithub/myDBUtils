@@ -8,6 +8,8 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -128,5 +130,42 @@ public class BaseServiceImpl implements BaseService {
             }
         }
     }
+
+    public void inputEntity(Connection connection, String sql, List<Object> list, int fieldNum) {
+        Class<?> clazz = list.get(0).getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        PreparedStatement ps1 =null;
+        try {
+            ps1 = connection.prepareStatement(sql);
+            int count=0;
+            int batchSize=1000;
+            for(Object entity:list){
+                for(int i=0;i<fieldNum;i++){
+                    Method getM = clazz.getDeclaredMethod("get"+indexUp(fields[i].getName()), null);
+                    ps1.setObject(i+1, getM.invoke(entity, null));
+                }
+                ps1.addBatch();
+                if(++count%batchSize==0){
+                    ps1.executeBatch();
+                    ps1.clearBatch();
+                }
+            }
+            ps1.executeBatch();
+            ps1.clearBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(ps1!=null) ps1.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static String indexUp(String str) {
+        return str.substring(0, 1).toUpperCase()+str.substring(1);
+    }
+
 
 }

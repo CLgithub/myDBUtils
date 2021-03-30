@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cl</groupId>
-    <artifactId>DButils</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>myDButils</artifactId>
+    <version>0.68</version>
 
 
     <dependencies>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.1</version>
         </dependency>
 
         <!--common-->
@@ -31,17 +31,17 @@
         </dependency>
 
         <!-- c3p0连接池 -->
-        <!--<dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
-        </dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>c3p0</groupId>-->
+            <!--<artifactId>c3p0</artifactId>-->
+            <!--<version>0.9.1.1</version>-->
+        <!--</dependency>-->
         <!--dbcp连接池-->
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>commons-dbcp</groupId>-->
+            <!--<artifactId>commons-dbcp</artifactId>-->
+            <!--<version>1.4</version>-->
+        <!--</dependency>-->
         <!--HikariCP连接池-->
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -49,17 +49,25 @@
             <version>2.3.13</version>
         </dependency>
 
-        <!--oracle 驱动-->
-       <!-- <dependency>
-            <groupId>cn.easyproject</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>12.1.0.2.0</version>
-        </dependency>-->
+        <!--druid连接池-->
         <!--<dependency>-->
-            <!--<groupId>cn.easyproject</groupId>-->
-            <!--<artifactId>ojdbc5</artifactId>-->
-            <!--<version>11.2.0.4</version>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>druid</artifactId>-->
+            <!--<version>1.1.16</version>-->
         <!--</dependency>-->
+
+        <!--oracle 驱动-->
+        <!--<dependency>-->
+            <!--<groupId>com.oracle.ojdbc</groupId>-->
+            <!--<artifactId>ojdbc7</artifactId>-->
+            <!--<version>12.1.0.2</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.4</version>
+        </dependency>
+
 
         <!--dbutils-->
         <dependency>
@@ -68,7 +76,26 @@
             <version>1.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+
     </dependencies>
+
+    <!--<build>-->
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<excludes>-->
+                    <!--<exclude>*</exclude>-->
+                <!--</excludes>-->
+            <!--</resource>-->
+        <!--</resources>-->
+    <!--</build>-->
 
     <!-- 私服 -->
     <!--<repositories>
