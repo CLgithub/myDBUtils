@@ -9,6 +9,7 @@
     <version>0.68</version>
 
 
+
     <dependencies>
 
         <!--test-->
@@ -48,6 +49,12 @@
             <artifactId>HikariCP-java6</artifactId>
             <version>2.3.13</version>
         </dependency>
+        <!--druid连接池-->
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>druid</artifactId>-->
+            <!--<version>1.1.16</version>-->
+        <!--</dependency>-->
 
         <!--druid连接池-->
         <!--<dependency>-->
@@ -57,11 +64,6 @@
         <!--</dependency>-->
 
         <!--oracle 驱动-->
-        <!--<dependency>-->
-            <!--<groupId>com.oracle.ojdbc</groupId>-->
-            <!--<artifactId>ojdbc7</artifactId>-->
-            <!--<version>12.1.0.2</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc6</artifactId>

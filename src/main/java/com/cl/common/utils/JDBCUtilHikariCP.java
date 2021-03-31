@@ -1,10 +1,7 @@
 package com.cl.common.utils;
 
-//import com.alibaba.druid.pool.DruidDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbutils.QueryRunner;
-import org.junit.Test;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -18,9 +15,6 @@ public class JDBCUtilHikariCP {
     static HikariDataSource hikariDataSource2 = null;
     static HikariDataSource hikariDataSource3 = null;
 
-//    static DruidDataSource druidDataSource = null;
-//    static DruidDataSource druidDataSource2 = null;
-//    static DruidDataSource druidDataSource3 = null;
 
 
     static {
@@ -54,13 +48,6 @@ public class JDBCUtilHikariCP {
             hikariDataSource3.setConnectionTestQuery(properties.getProperty("conTestQuery3") == null ? properties.getProperty("conTestQuery") : properties.getProperty("conTestQuery3"));
             hikariDataSource3.setMaximumPoolSize(Integer.parseInt(properties.getProperty("maxMumPoolSize3") == null ? "10" : properties.getProperty("maxMumPoolSize3")));
             hikariDataSource3.setConnectionTimeout(Long.parseLong(properties.getProperty("countTimeOut3") == null ? "60000" : properties.getProperty("countTimeOut3")));
-
-//            druidDataSource=new DruidDataSource();
-//            druidDataSource.setDriverClassName(properties.getProperty("driverClassName"));
-//            druidDataSource.setUrl(properties.getProperty("url"));
-//            druidDataSource.setUsername(properties.getProperty("username"));
-//            druidDataSource.setPassword(properties.getProperty("password"));
-//            druidDataSource.setQueryTimeout(Integer.parseInt(properties.getProperty("countTimeOut") == null ? "60000" : properties.getProperty("countTimeOut"))/1000);
 
 
         } catch (Exception e) {
